@@ -16,7 +16,8 @@ class Album extends Component {
       currentTime: 0,
       duration: album.songs[0].duration,
       isPlaying: false,
-      isHover: false
+      isHover: false,
+      volume: 50
     };
 
     this.audioElement = document.createElement('audio');
@@ -28,18 +29,23 @@ class Album extends Component {
       timeupdate: e => {
         this.setState({ currentTime: this.audioElement.currentTime});
       },
-      durationChange: e => {
+      durationchange: e => {
         this.setState({ duration: this.audioElement.duration });
+      },
+      volumecontrol: e => {
+        this.setState({ volume: this.audioElement.volume });
       }
     };
     this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
     this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
+    this.audioElement.addEventListener('volumecontrol', this.eventListeners.volumecontrol);
   }
 
   componentWillUnmount() {
     this.audioElement.src = null;
     this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
-    this.audioElement.removeEventListener('durationchange', this.EventListeners.durationchange);
+    this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
+    this.audioElement.removeEventListener('volumecontrol', this.eventListeners.volumecontrol);
   }
 
   play() {
@@ -90,10 +96,17 @@ class Album extends Component {
       this.play();
     }
   }
+
   handleTimeChange(e) {
     const newTime = this.audioElement.duration * e.target.value;
     this.audioElement.currentTime = newTime;
     this.setState({ currentTime: newTime });
+  }
+
+  handleVolChange(e) {
+    const newVol = e.target.value;
+    this.audioElement.volume = newVol;
+    this.setState({ volume: newVol });
   }
 
   setIcon(song, index) {
@@ -110,6 +123,19 @@ class Album extends Component {
           return <span className="ion-play"></span>;
       }
   }
+
+  formatTime(time) {
+    if(typeof time !== 'number'){
+      return <span>"-:--"</span>
+    }
+    else{
+      const mins = Math.floor(time/60);
+      const secs = Math.trunc(time%60);
+      if(secs<10){
+        return <span>{"0"+mins+":0"+secs}</span>
+      }
+      else return <span>{"0"+mins+":"+secs}</span>
+    }}
 
 
   handleHover(song) {
@@ -150,7 +176,7 @@ class Album extends Component {
 
                 <td>{this.setIcon(song, index)}</td>
                 <td>{song.title}</td>
-                <td>{song.duration}</td>
+                <td>{this.formatTime(Number(song.duration))}</td>
               </tr>
             )
           }
@@ -161,10 +187,13 @@ class Album extends Component {
         currentSong={this.state.currentSong}
         currentTime={this.audioElement.currentTime}
         duration={this.audioElement.duration}
+        currentVol={this.audioElement.volume}
         handleSongClick={() => this.handleSongClick(this.state.currentSong)}
         handlePrevClick={() => this.handlePrevClick()}
         handleNextClick={() => this.handleNextClick()}
         handleTimeChange={(e) => this.handleTimeChange(e)}
+        handleVolChange={(e) => this.handleVolChange(e)}
+        formatTime={(time) => this.formatTime(time)}
         />
       </section>
     );
