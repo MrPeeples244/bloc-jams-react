@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
+import PlayerBar from './PlayerBar';
 
 class Album extends Component {
   constructor(props) {
@@ -39,12 +40,20 @@ class Album extends Component {
     const isSameSong = this.state.currentSong === song;
     if (this.state.isPlaying && isSameSong) {
       this.pause();
-    } else {
+    }
+    else {
         if (!isSameSong) {this.setSong(song); }
       this.play();
     }
   }
 
+  handlePrevClick() {
+    const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+    const newIndex = Math.max(0, currentIndex-1);
+    const newSong = this.state.album.songs[newIndex];
+    this.setSong(newSong);
+    this.play();
+  }
 
   setIcon(song, index) {
       if(this.state.isPlaying && this.state.currentSong === song){
@@ -55,11 +64,11 @@ class Album extends Component {
       }
       if(this.state.isHover !== song){
           return <span>{index+1}</span>;
-        }
+      }
       else{
           return <span className="ion-play"></span>;
       }
-    }
+  }
 
 
   handleHover(song) {
@@ -106,6 +115,12 @@ class Album extends Component {
           }
           </tbody>
         </table>
+        <PlayerBar
+        isPlaying={this.state.isPlaying}
+        currentSong={this.state.currentSong}
+        handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+        handlePrevClick={() => this.handlePrevClick()}
+        />
       </section>
     );
   }
