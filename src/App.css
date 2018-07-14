@@ -1,28 +1,59 @@
+
+/* General */
+
+/* Header */
+body {
+background: #212121;
+}
+/* Landing Page */
+.banner {
+  text-align: center;
+  position: relative;
+}
+.banner-img {
+  width: 90%;
+  height: auto;
+}
+.hero-title {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-size: 4rem;
+
+}
+.point {
+  display: inline-block;
+  width: 15%;
+  padding: 5rem;
+
+}
+#point1 {
+  position: absolute;
+  bottom: 20%;
+  left: 5%;
+}
+#point2 {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%);
+}
+#point3 {
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+}
+.icon {
+  font-size: 7rem;
+}
+/* Library */
+
+/* Album */
+
+/* Player Bar */
+
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
