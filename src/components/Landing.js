@@ -2,10 +2,9 @@ import React from 'react';
 
 const Landing = () => (
   <section className="landing">
-    <div className="banner">
-        <img className="banner-img" src='assets/images/turntableBG.jpg' alt="turntable image banner" />
-        <h1 className="hero-title">Turn the music up!</h1>
-    </div>
+
+        <img className="banner-img" src='assets/images/cassettes.jpeg' alt="turntable banner" />
+      <div className="bannerContainer">
       <section className="selling-points">
         <div className="point" id="point1">
           <span className="icon ion-music-note"></span>
@@ -14,7 +13,7 @@ const Landing = () => (
         </div>
         <div className="point" id="point2">
           <span className="icon ion-wifi"></span>
-          <h2 className="point-title">Unlimited, streaming, ad-free</h2>
+          <h2 className="point-title">Unlimited streaming, ad-free</h2>
           <p className="point-description">No arbitrary limits. No distractions.</p>
         </div>
         <div className="point" id="point3">
@@ -23,7 +22,7 @@ const Landing = () => (
           <p className="point-description">Listen to your music on the go. This streaming service is available on all mobile platforms.</p>
         </div>
       </section>
-    
+      </div>
   </section>
 );
 

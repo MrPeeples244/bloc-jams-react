@@ -111,26 +111,32 @@ class Album extends Component {
 
   setIcon(song, index) {
       if(this.state.isPlaying && this.state.currentSong === song){
-          return <span className="ion-pause"></span>;
+          return <span className="ion-ios-pause"></span>;
       }
       if(!this.state.isPlaying && this.state.currentSong === song){
-          return <span className="ion-play"></span>;
+          return <span className="ion-ios-play"></span>;
       }
       if(this.state.isHover !== song){
           return <span>{index+1}</span>;
       }
       else{
-          return <span className="ion-play"></span>;
+          return <span className="ion-ios-play"></span>;
       }
   }
 
   formatTime(time) {
     if(typeof time !== 'number'){
-      return <span>"-:--"</span>
+      return <span>"--:--"</span>
     }
     else{
       const mins = Math.floor(time/60);
       const secs = Math.trunc(time%60);
+      if(typeof secs !== 'number'){
+        return <span>"--:--"</span>
+      }
+      if(typeof mins !== 'number'){
+        return <span>"--:--"</span>
+      }
       if(secs<10){
         return <span>{"0"+mins+":0"+secs}</span>
       }
@@ -150,8 +156,10 @@ class Album extends Component {
   render() {
     return (
       <section className="album">
+        <div className="album-container">
         <section id="album-info">
-          <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
+          <img id="album-cover-art" src={this.state.album.albumCover}
+               alt={this.state.album.title}/>
           <div className="album-details">
             <h1 id="album-title">{this.state.album.title}</h1>
             <h2 className="artist">{this.state.album.artist}</h2>
@@ -182,6 +190,7 @@ class Album extends Component {
           }
           </tbody>
         </table>
+        </div>
         <PlayerBar
         isPlaying={this.state.isPlaying}
         currentSong={this.state.currentSong}
